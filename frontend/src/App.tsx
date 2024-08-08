@@ -4,9 +4,13 @@ import Card from "./Components/Card/Card";
 import CardList from "./Components/CardList/CardList";
 import Search from "./Components/Search/Search";
 import "./App.css";
+import { CompanySearch } from "./company";
+import { searchCompanies } from "./api";
 
 function App() {
   const [search, setSearch] = useState<string>("");
+  const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
+  const [serverError, setServerError] = useState<string>("");
 
   interface Props {}
 
@@ -15,8 +19,15 @@ function App() {
     console.log(e);
   };
 
-  const onClick = (e: SyntheticEvent) => {
-    console.log(e);
+  const onClick = async (e: SyntheticEvent) => {
+    const result: any = await searchCompanies(search);
+    console.log(result);
+
+    if (typeof result === "string") {
+      setServerError(result);
+    } else if (Array.isArray(result.data)) {
+      setSearchResult(result?.data);
+    }
   };
 
   return (

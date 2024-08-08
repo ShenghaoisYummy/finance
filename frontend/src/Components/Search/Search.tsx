@@ -9,7 +9,8 @@ type Props = {
 const Search: React.FC<Props> = ({ onClick, search, handleChange }: Props) => {
   return (
     <div>
-      <input value={search} onChange={(e) => onClick(e)}></input>
+      <input value={search} onChange={(e) => handleChange(e)}></input>
+      <button onClick={(e) => onClick(e)}></button>
     </div>
   );
 };
